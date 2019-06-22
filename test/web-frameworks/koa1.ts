@@ -15,9 +15,9 @@
  */
 
 import * as http from 'http';
-import { AddressInfo } from 'net';
+import {AddressInfo} from 'net';
 
-import { koa_1 } from '../../src/plugins/types';
+import {koa_1} from '../../src/plugins/types';
 import * as testTraceModule from '../trace';
 
 import {
@@ -42,7 +42,9 @@ export class Koa1 implements WebFramework {
   addHandler(options: WebFrameworkAddHandlerOptions): void {
     if (!options.hasResponse && !options.blocking) {
       throw new Error(
-        `${this.constructor.name} wrapper for testing doesn't support non-blocking handlers.`
+        `${
+          this.constructor.name
+        } wrapper for testing doesn't support non-blocking handlers.`
       );
     }
     this.app.use(function*(next) {

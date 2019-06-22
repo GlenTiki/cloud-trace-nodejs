@@ -20,13 +20,13 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as semver from 'semver';
 
-import { cls } from '../src/cls';
-import { OpenCensusPropagation } from '../src/config';
-import { SpanType } from '../src/constants';
-import { Span } from '../src/plugin-types';
-import { ChildSpanData, RootSpanData } from '../src/span-data';
-import { TraceSpan } from '../src/trace';
-import { StackdriverTracerConfig } from '../src/trace-api';
+import {cls} from '../src/cls';
+import {OpenCensusPropagation} from '../src/config';
+import {SpanType} from '../src/constants';
+import {Span} from '../src/plugin-types';
+import {ChildSpanData, RootSpanData} from '../src/span-data';
+import {TraceSpan} from '../src/trace';
+import {StackdriverTracerConfig} from '../src/trace-api';
 
 /**
  * Constants
@@ -85,7 +85,9 @@ export function assertSpanDuration(span: TraceSpan, bounds: [number, number?]) {
   assert.ok(
     spanDuration >= lowerBound - ASSERT_SPAN_TIME_TOLERANCE_MS &&
       spanDuration <= upperBound + ASSERT_SPAN_TIME_TOLERANCE_MS,
-    `Span duration of ${spanDuration} ms is not in the acceptable expected range of [${bounds[0]}, ${bounds[1]}] ms (w/ ${ASSERT_SPAN_TIME_TOLERANCE_MS} ms leniency)`
+    `Span duration of ${spanDuration} ms is not in the acceptable expected range of [${
+      bounds[0]
+    }, ${bounds[1]}] ms (w/ ${ASSERT_SPAN_TIME_TOLERANCE_MS} ms leniency)`
   );
 }
 
@@ -131,8 +133,8 @@ interface PluginFixtures {
    * denoted by leading underscores.
    */
   [fixture: string]: {
-    dependencies: { [moduleName: string]: string };
-    engines?: { node?: string };
+    dependencies: {[moduleName: string]: string};
+    engines?: {node?: string};
     /**
      * If there are multiple top-level dependencies, specifies which one is the
      * "main" one
@@ -148,7 +150,7 @@ interface FixtureHelper<T> {
   /** The module version encapsulated by the fixture. */
   version: string;
   /** The parsed module version. */
-  parsedVersion: { major: number; minor: number; patch: number };
+  parsedVersion: {major: number; minor: number; patch: number};
   /** When called, loads the fixture. */
   require: () => T;
   /**
@@ -200,7 +202,7 @@ function getFixturesForModule<T>(moduleName: string): Array<FixtureHelper<T>> {
       const skip = (it: Mocha.TestFunction, versionRange: string) => {
         return semver.satisfies(version, versionRange) ? it.skip : it;
       };
-      return { version, parsedVersion, require: getModule, skip };
+      return {version, parsedVersion, require: getModule, skip};
     });
 }
 

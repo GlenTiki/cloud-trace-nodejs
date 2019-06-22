@@ -15,9 +15,9 @@
  */
 
 import * as http from 'http';
-import { AddressInfo } from 'net';
+import {AddressInfo} from 'net';
 
-import { express_4 } from '../../src/plugins/types';
+import {express_4} from '../../src/plugins/types';
 
 import {
   WebFramework,
@@ -40,7 +40,9 @@ export class Express4 implements WebFramework {
   addHandler(options: WebFrameworkAddHandlerOptions): void {
     if (!options.hasResponse && !options.blocking) {
       throw new Error(
-        `${this.constructor.name} wrapper for testing doesn't support non-blocking handlers.`
+        `${
+          this.constructor.name
+        } wrapper for testing doesn't support non-blocking handlers.`
       );
     }
     this.app.get(options.path, async (req, res, next) => {

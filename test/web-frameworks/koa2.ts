@@ -15,11 +15,11 @@
  */
 
 import * as http from 'http';
-import { AddressInfo } from 'net';
+import {AddressInfo} from 'net';
 
-import { koa_2 as Koa } from '../../src/plugins/types';
+import {koa_2 as Koa} from '../../src/plugins/types';
 
-import { WebFramework, WebFrameworkAddHandlerOptions } from './base';
+import {WebFramework, WebFrameworkAddHandlerOptions} from './base';
 
 export class Koa2 implements WebFramework {
   static commonName = 'koa@2';
@@ -37,7 +37,9 @@ export class Koa2 implements WebFramework {
   addHandler(options: WebFrameworkAddHandlerOptions): void {
     if (!options.hasResponse && !options.blocking) {
       throw new Error(
-        `${this.constructor.name} wrapper for testing doesn't support non-blocking handlers.`
+        `${
+          this.constructor.name
+        } wrapper for testing doesn't support non-blocking handlers.`
       );
     }
     this.app.use(async (ctx, next) => {

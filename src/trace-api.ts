@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { EventEmitter } from 'events';
+import {EventEmitter} from 'events';
 import * as uuid from 'uuid';
 
-import { cls, RootContext } from './cls';
-import { OpenCensusPropagation, TracePolicy } from './config';
-import { Constants, SpanType } from './constants';
-import { Logger } from './logger';
+import {cls, RootContext} from './cls';
+import {OpenCensusPropagation, TracePolicy} from './config';
+import {Constants, SpanType} from './constants';
+import {Logger} from './logger';
 import {
   Func,
   Propagation,
@@ -38,9 +38,9 @@ import {
   DISABLED_ROOT_SPAN,
   UntracedRootSpanData,
 } from './span-data';
-import { TraceLabels } from './trace-labels';
-import { traceWriter } from './trace-writer';
-import { neverTrace } from './tracing-policy';
+import {TraceLabels} from './trace-labels';
+import {traceWriter} from './trace-writer';
+import {neverTrace} from './tracing-policy';
 import * as util from './util';
 
 /**
@@ -111,7 +111,7 @@ export class StackdriverTracer implements Tracer {
           -16
         ),
       });
-      this.headerPropagation!.inject({ setHeader }, value);
+      this.headerPropagation!.inject({setHeader}, value);
     },
   };
 
@@ -195,13 +195,15 @@ export class StackdriverTracer implements Tracer {
       return fn(DISABLED_ROOT_SPAN);
     }
 
-    options = options || { name: '' };
+    options = options || {name: ''};
 
     // Don't create a root span if we are already in a root span
     const rootSpan = cls.get().getContext();
     if (rootSpan.type === SpanType.ROOT && !rootSpan.span.endTime) {
       this.logger!.warn(
-        `TraceApi#runInRootSpan: [${this.pluginNameToLog}] Cannot create nested root spans.`
+        `TraceApi#runInRootSpan: [${
+          this.pluginNameToLog
+        }] Cannot create nested root spans.`
       );
       return fn(UNCORRELATED_ROOT_SPAN);
     }
@@ -305,7 +307,7 @@ export class StackdriverTracer implements Tracer {
       return DISABLED_CHILD_SPAN;
     }
 
-    options = options || { name: '' };
+    options = options || {name: ''};
     const rootSpan = cls.get().getContext();
     if (rootSpan.type === SpanType.ROOT) {
       if (!!rootSpan.span.endTime) {
@@ -317,7 +319,11 @@ export class StackdriverTracer implements Tracer {
         // seems to have some value, but isn't representable. The user probably
         // needs a custom outer span that encompasses the entirety of work.
         this.logger!.warn(
-          `TraceApi#createChildSpan: [${this.pluginNameToLog}] Creating phantom child span [${options.name}] because root span [${rootSpan.span.name}] was already closed.`
+          `TraceApi#createChildSpan: [${
+            this.pluginNameToLog
+          }] Creating phantom child span [${options.name}] because root span [${
+            rootSpan.span.name
+          }] was already closed.`
         );
         return UNCORRELATED_CHILD_SPAN;
       }
@@ -379,7 +385,9 @@ export class StackdriverTracer implements Tracer {
         skipFrames: options.skipFrames ? options.skipFrames + 1 : 1,
       });
       this.logger!.info(
-        `TraceApi#createChildSpan: [${this.pluginNameToLog}] Created child span [${options.name}]`
+        `TraceApi#createChildSpan: [${
+          this.pluginNameToLog
+        }] Created child span [${options.name}]`
       );
       return childContext;
     } else if (rootSpan.type === SpanType.UNSAMPLED) {
@@ -390,7 +398,11 @@ export class StackdriverTracer implements Tracer {
     } else {
       // Context was lost.
       this.logger!.warn(
-        `TraceApi#createChildSpan: [${this.pluginNameToLog}] Creating phantom child span [${options.name}] because there is no root span.`
+        `TraceApi#createChildSpan: [${
+          this.pluginNameToLog
+        }] Creating phantom child span [${
+          options.name
+        }] because there is no root span.`
       );
       return UNCORRELATED_CHILD_SPAN;
     }
