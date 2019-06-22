@@ -24,7 +24,8 @@
     "script": "ts-node -P ./scripts/tsconfig.json ./scripts",
     "license-check": "jsgl --local .",
     "docs-test": "linkinator docs -r --skip www.googleapis.com",
-    "predocs-test": "npm run docs"
+    "predocs-test": "npm run docs",
+    "docs": "compodoc src/"
   },
   "files": [
     "build/src/**/*.js",
@@ -48,6 +49,7 @@
     "node": ">=8.10.0"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.9",
     "@grpc/proto-loader": "^0.5.0",
     "@types/builtin-modules": "^2.0.0",
     "@types/console-log-level": "^1.4.0",
